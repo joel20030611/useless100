@@ -1,0 +1,595 @@
+1.Write SQL statements to demonstrate single row functions 
+
+CHARACTER FUNCTIONS:
+
+/* SINGLE ROW FUNCTIONS */
+/* CHARACTER FUNCTIONS */
+
+SELECT UPPER(LAST_NAME) FROM EMPLOYEES
+
+SELECT LOWER(JOB_ID) FROM EMPLOYEES
+
+SELECT INITCAP(FIRST_NAME) FROM EMPLOYEES
+
+SELECT LENGTH(SALARY) FROM EMPLOYEES
+
+SELECT LENGTH(EMAIL) FROM EMPLOYEES
+
+SELECT CONCAT(FIRST_NAME,LAST_NAME) FROM EMPLOYEES
+
+SELECT LAST_NAME,SUBSTR(LAST_NAME,2,4) FROM EMPLOYEES
+
+SELECT LAST_NAME,SUBSTR(LAST_NAME,3) FROM EMPLOYEES
+
+SELECT FIRST_NAME,INSTR(FIRST_NAME,'A') FROM EMPLOYEES
+
+SELECT LAST_NAME,LPAD(LAST_NAME,10,'*') FROM EMPLOYEES
+
+SELECT LAST_NAME,RPAD(LAST_NAME,10,'*') AS RPAD FROM EMPLOYEES
+
+SELECT LAST_NAME,LTRIM(FIRST_NAME,'B') AS LTRIM FROM EMPLOYEES
+
+SELECT LAST_NAME,RTRIM(FIRST_NAME,'a') AS RTRIM FROM EMPLOYEES
+
+SELECT LAST_NAME,REPLACE(LAST_NAME,'K',2) AS CHANGED_NAME FROM EMPLOYEES
+
+NUBER FUNCTIONS:
+
+/* NUMBER FUNCTION */
+
+SELECT ABS(-36.89) AS ABS_VALUE FROM DUAL
+
+SELECT CEIL(45.78) AS CEIL_VALUE FROM DUAL
+
+SELECT FLOOR(45.78) AS FLOOR_VALUE FROM DUAL
+
+SELECT POWER(4,2) AS POWER_VALUE FROM DUAL
+
+SELECT ROUND(47.346785,2) AS ROUND_VALUE FROM DUAL
+
+DATE FUNCTIONS:
+
+/* DATE FUNCTION */
+
+SELECT HIRE_DATE,ADD_MONTHS(HIRE_DATE,3) FROM EMPLOYEES
+
+SELECT HIRE_DATE,ADD_MONTHS(HIRE_DATE,-3) FROM EMPLOYEES
+
+SELECT HIRE_DATE,LAST_DAY(HIRE_DATE) FROM EMPLOYEES
+
+SELECT NEXT_DAY('10-DEC-24','MONDAY') FROM DUAL
+
+SELECT HIRE_DATE,MONTHS_BETWEEN(SYSDATE,HIRE_DATE) FROM EMPLOYEES
+
+SELECT HIRE_DATE,MONTHS_BETWEEN(HIRE_DATE,SYSDATE) FROM EMPLOYEES
+
+CONVERSTION FUNCTIONS:
+
+/* CONVERSION FUNCTION */
+
+SELECT TO_CHAR(SYSDATE,'YYY'),TO_CHAR(SYSDATE,'YEAR'),TO_CHAR(SYSDATE,'YY') FROM DUAL
+
+SELECT HIRE_DATE,TO_CHAR(HIRE_DATE,'YYYY'),TO_CHAR(GIRE_DATE,'YEAR'),TO_CHAR(HIRE_DTAE,'YY') FROM EMPLOYEES
+
+SELECT TO_CHAR(SYSDATE,'MM'),TO_CHAR(SYSDATE,'MONTH'),TO_CHAR(SYSDATE,'MON') FROM DUAL
+
+SELECT HIRE_DATE,TO_CHAR(HIRE_DATE,'MM'),TO_CHAR(HIRE_DATE,'MONTH'),TO_CHAR(HIRE_DATE,'MON') FROM EMPLOYEES
+
+SELECT TO_CHAR(SYSDATE,'DY'),TO_CHAR(SYSDATE,'DAY'),TO_CHAR(SYSDATE,'DD') FROM DUAL
+
+SELECT HIRE_DATE,TO_CHAR(HIRE_DATE,'DY'),TO_CHAR(HIRE_DATE,'DAY'),TO_CHAR(HIRE_DATE,'DAY'),TO_CHAR(HIRE_DATE,'DD') FROM EMPLOYEES
+
+SELECT TO_CHAR(SYSDATE,'DD/MM/YYYY') FROM DUAL
+
+SELECT HIRE_DATE,TO_CHAR(HIRE_DATE,'DD/MM/YYYY') FROM EMPLOYEES
+
+SELECT TO_CHAR(SALARY,'99,999.00') FROM EMPLOYEES
+
+GENERAL FUNCTIONS:
+
+/* GENERAL FUNCTION */
+
+SELECT * FROM EMPLOYEES
+SELECT SALARY+COMMISSION PCT FROM EMPLOYEES
+
+SELECT SALARY+NVL(COMMISSION_PCT,0) FROM EMPLOYEES
+
+
+
+BASCIS PL/SQL PROGRAMS
+
+
+Pratical 2
+
+Q1. Write a PL/SQL block to display circumference and area for a given radius and
+diameter
+
+DECLARE
+pi CONSTANT NUMBER :=3.141592654;
+radius NUMBER(5,2);
+dia NUMBER(5,2);
+circumference NUMBER(7,2);
+area NUMBER(10,2);
+BEGIN
+radius:-10;
+dia:-radius*2;
+circumference:=2.0"pi*radius;
+area:=pi*radius*radius;
+DBMS_OUTPUT.PUT_LINE('Radius:'||radius);
+DBMS_OUTPUT.PUT_LINE('Diameter:'||dia);
+DBMS_OUTPUT.PUT_LINE('Circumference:"||circumference);
+DBMS_OUTPUT.PUT_LINE("Area:'||area);
+END;
+
+Q2. Write a PL/SQL block that selects the maximum department number in the
+departments table. Print the results on the screen.
+
+Statement processed
+THE MAXIMUM DEPARTMENT NUMBER IS 190
+
+Q3.Write a PL/SQL block to return the sum of salaries for all employees in the specified
+department.
+
+DECLARE
+V_SUM_SAL NUMBER(10,2);
+V_DEPTNO NUMBER NOT NULL:=50;
+BEGIN
+SELECT SUM(SALARY) INTO V_SUM_SAL FROM EMPLOYEES WHERE DEPARTMENT_ID-V_DEPTNO;
+DBMS_OUTPUT.PUT_LINE('THE SUM OF The Salary foR dEPRTmENT '||V_DEPTNO||' IS '||V_ SUM_SAL);
+END
+
+Q4. Write a PL/SQL Block to increase the salary of all employees by 1000, who are stock
+clerks.
+
+DECLARE
+V_SAL_INCREASE EMPLOYEES.SALARYXTYPE:-1000;
+BEGIN
+UPDATE EMPLOYEES SET SALARY=SALARY+V_SAL_INCREASE WHERE JOB_ID='ST_CLERK';
+DBMS_OUTPUT.PUT_LINE('EMPLOYEES SALARY UPDATED SUCCESSFULLY');
+END;
+
+LOOPS/CONDITIONAL STATEMENTS AND COMPOSITE TYPES
+
+Pratical 3
+
+Q1. Write a PL/SQL block to demonstrate a basic loop. Insert three new locations IDs for the country code of CA and the city of Montreal.
+
+DECLARE
+v_country_id locations.country_id%TYPE:="CA';
+v_city locations.city%TYPE:="Montreal';
+v_location_id locations.location_idXTYPE;
+v_counter NUMBER(2):=1;
+BEGIN
+SELECT MAX(location_id)INTO v_location_id FROM locations WHERE country_id=v_country_id;
+LOOP
+INSERT INTO locations(location_id,city,country_id) VALUES ((v_location_id
+counter),v_city,v_country_id);
++
+v_counter:=v_counter+1;
+EXIT WHEN v_counter)3;
+END LOOP;|
+DBMS_OUTPUT.PUT_LINE('NWE LOCATION ADDED*);
+END;
+
+Q2.Write a PL/SQL block to demonstrate a while loop. Insert three new locations IDs for the country code of CA
+and the city of Montreal.
+
+DECLARE
+v_country_id locations.country_id%TYPE:='CA';
+v_city locations.city%TYPE:="Montreal';
+v_location_id locations.location_id%TYPE;
+counter NUMBER(2):=1;
+>
+BEGIN
+SELECT MAX(location_id)INTO v_location_id FROM locations WHERE country_id-v_country_id;
+WHILE
+counter<=3 LOOP
+INSERT INTO locations(location_id,city,country_id) VALUES ((v_location_id + v_counter),v_city,v_country_id);
+v_counter:=v_counter+1;
+END LOOP;
+DBMS_OUTPUT.PUT_LINE("NNE LOCATION ADDED');
+END;
+
+Q3.Write a PL/SQL block to demonstrate a for loop. Insert three new locations IDs for the country code of CA
+and the city of Montreal.
+
+DECLARE
+v_country_id locations.country_id%TYPE:='CA';
+v_city locations.city%TYPE:="Montreal
+v_location_id locations.location_idXTYPE;
+
+
+BEGIN
+SELECT MAX(location_id)INTO v_location_id FROM locations WHERE country_id=v_country_id;
+FOR v_counter IN 1..3 LOOP
+INSERT INTO locations(location_id,city,country_id) VALUES ((v_location_id
+
+
+v_counter),v_city,v_country_id);
+
+
+END LOOP;
+DBMS_OUTPUT.PUT_LINE('NWE LOCATION ADDED');
+END;
+
+Q4. Create a PL/SQL block that computes the commission amount for a given amount based on the employee's
+salary.
+a) Provide the value 100 to employee ID.
+b)If the employee's salary is less than Rs. 5000/-, display the bonus amount for the employee as 10% of the
+salary.
+c) If the employee's salary is between Rs. 5000/- and Rs. 10,000/, display the bonus amount for the employee
+as 15% of the salary.
+d) lf the employee's salary is more than Rs. 10000/-, display the bonus amount for the employee as 20% of the
+salary.
+e) If the employee's salary is NULL, display the bonus amount for the employee as 0
+
+DECLARE
+V empno employees.employee_id%TYPE:=100;
+v_sal employees.salary%TYPE;
+v_bonus_per NUMBER(7,2);
+V
+bonus NUMBER(7,2);
+BEGIN
+SELECT salary INTO V_sal
+FROM employees WHERE employee_id=v_empno;
+IF v_sal<5000 THEN v_bonus_per:=.10;
+ELSIF v_sal BETWEEN 5000 AND 10000 THEN v_bonus_per:=0.15;
+ELSIF v_sal>10000 THEN v_bonus_per:-0.20;
+ELSE v_bonus_per:=0;
+END IF;
+bonus:=v_sal*v_bonus_per;
+DBMS_OUTPUT.PUT_LINE("THE BONUS FOR EMPLOYEE ID AS'||v_empno||"AND SALARY'||v_sal||'IS"||v_bonus);
+END;
+
+
+DECLARE
+v_empno employees.employee_idxTYPE:=107;
+v_sal employees.salary%TYPE;
+v_bonus_per NUMBER(7,2);
+v_bonus NUMBER(7,2);
+BEGIN
+SELECT salary INTO v_sal
+FROM employees WHERE employee_id=v_empno;
+IF v_sal<5000 THEN v_bonus_per:=.10;
+ELSIF v_sal BETWEEN 5000 AND 10000 THEN v_bonus_per:=0.15;
+ELSIF v_sal>10000 THEN v_bonus_per:=0.20;
+ELSE v_bonus_per:=0;
+END IF;
+v_bonus:=v_sal*v_bonus_per;
+DBMS_OUTPUT.PUT_LINE('THE BONUS FOR EMPLOYEE ID AS'||v_empno||'AND SALARY'||v_sal||'IS'||v_bonus);
+END;
+
+Q5.Write a PL/SQL block to add the information about a retired employee in a new table. Use RECORD datatype
+(You must create retired_emp table)
+
+CREATE TABLE RETIRED_EMP(
+EMP_O NUMBER(6),
+ENAME VARCHAR(20),
+JOB VARCHAR(10),
+MGR NUMBER(6),
+HIREDATE DATE,
+LEAVEDATE DATE,
+SAL NUMBER(8,2),
+COMM NUMBER(2,2),
+DEPTNO NUMBER(4)
+)
+
+
+DECLARE
+emp_rec employees%ROWTYPE;
+BEGIN
+
+
+SELECT * INTO emp_rec
+FROM employees
+
+
+
+):
+
+
+COMMIT;
+END;
+
+Q6. Write a PL/SQL block to store the information of employees 100 to 104 in an INDEX BY table. Use a loop to
+retrieve all the information and print the last name of those employees.
+
+DECLARE
+TYPE emp_table_type IS TABLE OF
+employees%ROWTYPE INDEX BY BINARY_INTEGER;
+emp_table emp_table_type;
+BEGIN
+FOR i IN 100..104
+LOOP
+SELECT *INTO emp_table(i) FROM employees
+WHERE employee_id=i;
+END LOOP;
+FOR i IN emp_table.FIRST..emp_table.LAST
+LOOP
+DBMS_OUTPUT.PUT_LINE(emp_table(i).last_name);
+END LOOP;
+END;
+
+PRACTICAL 4
+
+Exceptions: 
+1. Write a PL/SQL block to select the name of the employee with a given salary value. Use a variable to provide the salary. 
+   
+   a. If the salary entered returns more than one row, handle the exception with an appropriate exception handler and insert into the messages table, The message "More than one employee with  a salary of <salary>. 
+
+CODE:
+CREATE TABLE MESSAGES (RESULTS VARCHAR2(50));
+DECLARE
+v_ename employees.last_name % TYPE;
+v_sal employees.salary % TYPE:=6000;
+BEGIN
+SELECT last_name INTO v_ename
+FROM employees
+WHERE salary=v_sal;
+INSERT INTO messages(results) VALUES (v_ename||'-'||v_sal);
+EXCEPTION
+WHEN no_data_found THEN
+INSERT INTO messages(results)
+VALUES('No employees with the salary of'||TO_CHAR(v_sal));
+WHEN too_many_rows THEN
+INSERT INtO messages(results)
+VALUES ('More than one employees with the salary of'||TO_CHAR(v_sal));
+WHEN others THEN
+INSERT INTO messages(results)
+VALUES('some other error occured');
+END;
+
+SELECT *
+FROM MESSAGES
+
+
+b. If the salary entered does not return any rows, handle the exception with an appropriate exceptional handler and insert into the messages table. the message "No employee with a salary of <salary>. 
+
+CODE:
+DECLARE
+v_ename employees.last_name % TYPE;
+v_sal employees.salary % TYPE:=16000;
+BEGIN
+SELECT last_name INTO v_ename
+FROM employees
+WHERE salary=v_sal;
+INSERT INTO messages(results) VALUES (v_ename||'-'||v_sal);
+EXCEPTION
+WHEN no_data_found THEN
+INSERT INTO messages(results)
+VALUES('No employees with the salary of'||TO_CHAR(v_sal));
+WHEN too_many_rows THEN
+INSERT INTO messages(results)
+VALUES ("More than one employees with the salary of'||TO_CHAR(v_sal));
+WHEN others THEN
+INSERT INTO messages(results)
+VALUES('some other error occured');
+END;
+
+c. If the salary entered returns only one row, insert into the messages table, the employee name and the salary amount. 
+
+CODE:
+DECLARE
+v_ename employees.last_name % TYPE;
+v_sal employees.salary % TYPE:-17000;
+BEGIN
+SELECT last_name INTO v_ename
+FROM employees
+NHERE salary=v_sal;
+INSERT INTO messages(results) VALUES (v_ename||'-'||v_sal);
+EXCEPTION
+WHEN no data found THEN
+INSERT INTO messages(results)
+VALUES('No employees with the salary of'||TO_CHAR(v_sal);
+WHEN too_many_rows THEN
+INSERT INTO messages(results)
+VALUES ('More than one employees with the salary of'||TO_CHAR(V_sal));
+WHEN others THEN
+INSERT INTO messages(results)
+VALUES('some other error occured');
+END;
+
+d. Handle any other exception handler with an appropriate exception handler and insert into the messages table, the message "Some other error occurred." 
+
+CODE:
+DECLARE
+v_ename employees.last_name % TYPE;
+v_sal employees.salary % TYPE:=17000;
+BEGIN
+SELECT last_name INTO v_ename
+FROM employees
+WHERE salary=v_sal/0;
+INSERT INTO messages(results) VALUES (v_ename||"-'||v_sal);
+EXCEPTION
+WHEN no data found THEN
+INSERT INTO messages(results)
+VALUES( 'No employees with the salary of'||TO_CHAR(v_sal));
+WHEN too_many_rows THEN
+INSERT INTO messages(results)
+VALUES ("More than one employees with the salary of'||TO_CHAR(V_sal));
+WHEN others THEN
+INSERT INTO messages(results)
+VALUES('some other error occured');
+END;
+
+2.Write a PL/SQL block to update the departments table to a given location for a given dept_id. Write a user defined exception to pass a message to the user that the specified department_id does not exist. Execute the PL/SQL block by entering a department that does not exist. 
+CODE:
+DECLARE
+e_invalid_dept EXCEPTION;
+v_deptno departments.department_id % TYPE:=60;
+v_loc locations.location_id % TYPE: =1400;
+BEGIN
+UPDATE departments SET location_id=v_loc WHERE
+department_id=v_deptno;
+IF SQL%NOTFOUND THEN
+raise e_invalid_dept;
+ELSE DBMS_OUTPUT.PUT_LINE("UPDATED SUCCESSFULLY');
+END IF;
+EXCEPTION
+WHEN e_ invalid_dept THEN
+DBMS_OUTPUT.PUT_LINE('DEPARTMENT'||TO_CHAR(v_deptno)||'is an invalid department');
+END;
+
+2.code:
+DECLARE
+e_ invalid_dept EXCEPTION;
+v_deptno departments.department_id % TYPE:=170;
+v_loc locations.location_id % TYPE:=1400;
+BEGIN
+UPDATE departments SET location id=v_loc WHERE
+department_id=v_deptno;
+IF SQL%NOTFOUND THEN
+raise e_invalid_dept;
+ELSE DBMS_OUTPUT.PUT_LINE("UPDATED SUCCESSFULLY');
+END IF;
+EXCEPTION
+WHEN e_invalid_dept THEN
+DBMS_OUTPUT.PUT_LINE("DEPARTMENT'||TO_CHAR(v_deptno)||'is an invalid department');
+END;
+
+Procedures:
+1. Create a procedure called add_job to insert a new job into the jobs table, provide the id and the title of the job using two parameters.
+Code:
+CREATE OR REPLACE PROCEDURE add_job
+(p_jobid IN job_emp.job_id % TYPE,P_jobtitle IN job_emp.job_title % TYPE)
+IS
+BEGIN
+INSERT INTO job_emp(job_id,job_title) VALUES (P_jobid,P_jobtitle);
+END add_job;
+EXECUTE add_job('IT_DBA','DATABASE ADMIN');
+SELECT*
+FROM JOB_EMP;
+
+2.CODE:
+CREATE OR REPLACE PROCEDURE add_job
+(p_jobid IN job, emp.job_id % TYPE,P_jobtitle IN job_emp.job_title % TYPE,
+p_min_sal IN job emp.min_salary % TYPE ,
+P_max_sal IN job_ emp.max_salary % TYPE)
+IS
+BEGIN
+INSERT INTO job_emp VALUES (p_jobid,p_jobtitle,p_min_sal,p_max_sal);
+END add_job;
+EXECUTE del_job('IT_DBA1', 'DATABASE ADMIN',2000,7000);
+SELECT*
+FROM JOB_EMP;
+
+2. Create a procedure called upd_job to update the job title. Provide the job ob id and the new title using two parameters. Include the necessary exception if no update occur.
+CODE:
+CREATE OR REPLACE PROCEDURE upd_job
+(p_jobid IN job_emp.job_id%TYPE,p_jobtitle IN job_emp.job_title%TYPE)
+IS
+BEGIN
+UPDATE job_emp SET job_title=p_jobtitle WHERE job_id=p_jobid;
+IF SQL%NOTFOUND THEN
+DBMS_OUTPUT. PUT_LINE('No Job Updated');
+END IF;
+END upd_job;
+EXECUTE upd_job('IT_DBA1','DBMS ADMINISTRATOR');
+EXECUTE upd_job('IT_DBA2`,'DBMS Administrator');
+
+3. Create a procedure called del_job to delete the job title. from the jobs table. Include the necessary handler if o job is deleted.
+Code:
+CREATE OR REPLACE PROCEDURE del_job
+(p_jobid IN job_emp.job_id%TYPE)
+IS
+BEGIN
+DELETE FROM job_emp WHERE job_id=p_jobid;
+IF SQL*NOTFOUND THEN
+DBMS_OUTPUT.PUT_LINE('No Job deleted');
+END IF;
+END del_job;
+EXECUTE del_job('IT_DBA');
+
+Functions,Triggers:
+1.Create and invoke a function called q_job which returns the job title for a given job_id.
+Code:
+CREATE OR REPLACE FUNCTION q_job
+(p_jobid IN job_emp.job_id%TYPE)
+RETURN VARCHAR2
+IS
+v_jobtitle job_emp.job_title%TYPE;
+BEGIN
+SELECT job_title INTO v_jozbtitle FROM job_emp WHERE job_id-p_jobid;
+RETURN(v_jobtitle);
+END:
+SELECT q_job('SA_REP') FROM job_emp;
+
+2. Create and invoke a function annual_comp to return the annual salary by accepting two parameters and employees monthly salary and commission. The function should address NULL value.
+Use the function in a SELECT statement against the employees table for department no 80.
+Code:
+CREATE OR REPLACE FUNCTION annual_comp
+(p_sal IN employees.salary%TYPE
+P_comm IN employees.commission_pct%TYPE)
+RETURN NUMBER
+IS
+BEGIN
+RETURN(NVL (p_sal,0)*12+(NVL(p_comm,0)*p_sal*12));
+END annual_comp;
+SELECT employee_id,Last name,salary,annual_comp(salary,commission_pct) ANNUAL COMF
+FROM employees
+WHERE department_id-80;
+
+3. Create a trigger to restrict the data manipulation events on the employee table in business hours from monday to friday.
+Code:
+CREATE OR REPLACE TRIGGER secure_wmp
+BEFORE INSERT OR UPDATE OR DELETE ON employees
+BEGIN
+IF(TO_CHAR(SYSDATE, 'DY') IN ('SAT',"SUN")) OR
+(TO_CHAR(SYSDATE, 'HH24') NOT BETWEEN '08' AND '18")
+THEN
+IF DELETING THEN
+RAISE_APPLICATION_ERROR(-20503,'YOU MAY DELETE ONLY DURING BUSINESS HOURS');
+ELSIF INSERTING THEN
+RAISE_APPLICATION_ERROR(-20503,'YOU MAY INSERT ONLY DURING BUSINESS HOURS');
+ELSIF UPDATING THEN
+RAISE_APPLICATION_ERROR(-20503,'YOU MAY UPDATE SALARY ONLY DURING BUSINESS HOURS');
+ELSE RAISE_APPLICATION_ERROR(-20503,'YOU MAY UPDATE ONLY DURING BUSINESS HOURS');
+END IF;
+END IF;
+END;
+
+UPDATE employees SET salary=50000 WHERE employee_id=101
+
+CREATE OR REPLACE TRIGGER secure_wmp
+BEFORE INSERT OR UPDATE OR DELETE ON employees
+BEGIN
+IF(TO_CHAR(SYSDATE, 'DY') IN ('WED
+SUN')) OR
+(TO_CHAR(SYSDATE, 'HH24') NOT BETWEEN '08' AND '18")
+THEN
+IF DELETING THEN
+RAISE_APPLICATION_ERROR(-20503,'YOU MAY DELETE ONLY DURING BUSINESS HOURS');
+ELSIF INSERTING THEN
+RAISE_APPLICATION_ERROR(-20503,'YOU MAY INSERT ONLY DURING BUSINESS HOURS');
+ELSIF UPDATING THEN
+RAISE_APPLICATION_ERROR(-20503, "YOU MAY UPDATE SALARY ONLY DURING BUSINESS HOURS');
+
+ELSE RAISE_APPLICATION_ERROR(-20503,'YOU MAY UPDATE ONLY DURING BUSINESS HOURS'),
+END IF;
+END IF;
+END;
+
+UPDATE employees SET salary=50000 WHERE employee_id=101
+
+4. Create a trigger to allow only certain employees (AD_PRES,AD_VP) to be able to earn a salary of more than 50,000.
+Code:
+CREATE OR REPLACE TRIGGER restrict_salary
+BEFORE INSERT OR UPDATE OF salary ON employees
+FOR EACH ROW
+BEGIN
+IF NOT(:NEW.job_id IN('AD_PRES','AD_VP")) AND :NEW.salary>50000
+THEN
+RAISE_APPLICATION_ERROR(-7777, 'EMPLOYEE CANNOT EARN THIS AMOUNT');
+END IF;
+END;
+UPDATE employees SET salary=60000 WHERE job_id='ST_CLERK';
+
+5.Write a trigger to check that salaries entered only increase and don’t decrease
+Code:
+CREATE OR REPLACE TRIGGER check_sal
+BEFORE UPDATE OF salary ON employees
+FOR EACH ROW
+WHEN(NEW. salary<OLD.salary)
+BEGIN
+RAISE_APPLICATION_ERROR(-77777,'SALARY MUST NOT BE REDUCED');
+END check_sal;
