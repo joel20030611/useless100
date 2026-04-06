@@ -1,0 +1,183 @@
+PRACTICAL 1 — WORKING WITH DIRECTORIES & FILES
+--- DIRECTORY COMMANDS ---
+pwd
+mkdir test
+cd test
+cd ..
+ls
+ls -l
+man ls
+rmdir test
+--- FILE CREATION ---
+cat > file1
+Hello Linux
+CTRL + D
+--- DISPLAY FILE ---
+cat file1
+--- COPY FILE ---
+cp file1 file2
+--- RENAME / MOVE FILE ---
+mv file2 file3
+--- DELETE FILE ---
+rm file3
+--- HEAD / TAIL ---
+head file1
+tail file1
+--- MORE / LESS ---
+more file1
+less file1
+--- REVERSE FILE ---
+tac file1
+--- HISTORY ---
+history
+--- CALENDAR ---
+cal
+--- DATE ---
+date
+
+
+PRACTICAL 2 — SHELL SCRIPTING
+
+--- HELLO WORLD ---
+#!/bin/bash
+echo "Hello World"
+
+Run:
+chmod +x hello.sh
+./hello.sh
+--- EVEN ODD ---
+#!/bin/bash
+echo "Enter number"
+read n
+if (( n%2==0 ))
+then
+echo "Even"
+else
+echo "Odd"
+fi
+-- POSITIVE NEGATIVE ---
+-#!/bin/bash
+echo "Enter number"
+read n
+if [ $n -gt 0 ]
+then
+echo "Positive"
+elif [ $n -lt 0 ]
+then
+echo "Negative"
+else
+echo "Zero"
+fi
+--- ARITHMETIC CASE ---
+#!/bin/bash
+echo "Enter a"
+read a
+echo "Enter b"
+read b
+echo "1 Add 2 Sub 3 Mul 4 Div"
+read ch
+case $ch in
+1. echo $((a+b)) ;;
+2. echo $((a-b)) ;;
+3. echo $((a*b)) ;;
+4. echo $((a/b)) ;;
+   *) echo "Invalid" ;;
+   esac
+--- MONTH USING CASE ---
+#!/bin/bash
+echo "Enter month number"
+read n
+case $n in
+1. echo January ;;
+2. echo February ;;
+3. echo March ;;
+4. echo April ;;
+5. echo May ;;
+6. echo June ;;
+7. echo July ;;
+8. echo August ;;
+9. echo September ;;
+10. echo October ;;
+11. echo November ;;
+12. echo December ;;
+    *) echo Invalid ;;
+    esac
+
+PRACTICAL 3 — LOOPS
+
+--- WHILE LOOP ---
+#!/bin/bash
+i=0
+while [ $i -lt 10 ]
+do
+echo $i
+i=$((i+1))
+done
+--- UNTIL LOOP ---
+#!/bin/bash
+i=0
+until [ $i -gt 9 ]
+do
+echo $i
+i=$((i+1))
+done
+--- FOR LOOP (SCRIPT) ---
+#!/bin/bash
+for (( i=0; i<10; i++ ))
+do
+echo $i
+done
+--- FOR LOOP (TERMINAL) ---
+for i in 1 2 3 4 5
+do
+echo $i
+done
+
+
+PRACTICAL 4 — PROCESS, LINKS, BACKUP
+
+--- PROCESS COMMANDS ---
+ps
+pstree
+top
+kill PID
+--- CREATE HARD LINK ---
+ln file1 hardlink
+--- CREATE SOFT LINK ---
+ln -s file1 softlink
+--- CREATE BACKUP ---
+tar -cf backup.tar file1
+--- BACKUP MULTIPLE FILES ---
+tar -cf backup.tar file1 file2 file3
+--- EXTRACT BACKUP ---
+tar -xvf backup.tar
+
+PRACTICAL 5 — USERS, GROUPS, PERMISSIONS, RPM
+
+--- CREATE USER ---
+su
+useradd user1
+passwd user1
+--- LOCK USER ---
+passwd -l user1
+--- UNLOCK USER ---
+passwd -u user1
+--- CREATE GROUP ---
+groupadd group1
+--- ADD USER TO GROUP ---
+usermod -aG group1 user1
+--- CHECK GROUP ---
+groups user1
+--- CREATE FILE ---
+touch file1
+--- CHANGE PERMISSION ---
+chmod 777 file1
+--- CHANGE OWNERSHIP ---
+chown user1 file1
+--- CHANGE GROUP OWNERSHIP ---
+chown user1:group1 file1
+--- RPM COMMANDS ---
+rpm -qa
+rpm -ql bash
+rpm -qc bash
+rpm -qd bash
